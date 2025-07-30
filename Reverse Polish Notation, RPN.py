@@ -16,7 +16,7 @@ class Stack:
 def reverse_polska_notation(s) -> int:
     my_stack = Stack()
 
-    for item in s:
+    for item in s.split():
         if item == '*':
             result = my_stack.pop() * my_stack.pop()
             my_stack.push(result)
