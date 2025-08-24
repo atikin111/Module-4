@@ -32,15 +32,18 @@ class Graph:
 
     def bfs(self):
         visited = set()
+        result = []
         queue = deque([self._root])
+        visited.add(self._root)
 
         while queue:
             node = queue.popleft()
+            result.append(node)
             for neighbor in node.outbound:
                 if neighbor not in visited:
                     queue.append(neighbor)
                     visited.add(neighbor)
-        return visited
+        return result
 
 a = Node('a')
 b = Node('b')
@@ -54,8 +57,9 @@ b.point_to(d)
 
 g1 = Graph(a)
 
-print([str(node) for node in g1.dfs()])
+# print([str(node) for node in g1.dfs()])
 print([str(node) for node in g1.bfs()])
+
 
 a = Node('a')
 b = Node('b')
@@ -65,7 +69,9 @@ b.point_to(c)
 
 g2 = Graph(a)
 
-print([str(node) for node in g2.dfs()])
+# print([str(node) for node in g2.dfs()])
+print([str(node) for node in g2.bfs()])
+
 
 a = Node('a')
 b = Node('b')
@@ -83,7 +89,9 @@ c.point_to(e)
 
 g3 = Graph(a)
 
-print([str(node) for node in g3.dfs()])
+# print([str(node) for node in g3.dfs()])
+print([str(node) for node in g3.bfs()])
+
 
 a = Node('a')
 b = Node('b')
@@ -109,4 +117,5 @@ g.point_to(k)
 
 g4 = Graph(a)
 
-print([str(node) for node in g4.dfs()])
+# print([str(node) for node in g4.dfs()])
+print([str(node) for node in g4.bfs()])
