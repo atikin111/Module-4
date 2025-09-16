@@ -3,10 +3,11 @@ class MyDict:
         self.my_dict = {}
 
     def __getitem__(self, key):
-        return self.my_dict.get(key, None)
+        if key in self.my_dict:
+            return self.my_dict.get(key, None)
 
-    def __contains__(self, key):
-        return key in self.my_dict
+    # def __contains__(self, key):
+    #     return key in self.my_dict
 
     def __setitem__(self, key, value):
         self.my_dict[key] = value
@@ -35,7 +36,8 @@ if __name__ == "__main__":
     my_dict['name'] = 'Alice'
     my_dict['age'] = 30
     print(my_dict['name'])  # Вернет 'Alice'
-    print('city' in my_dict)  # Вернет False
+    # print('city' in my_dict)
+    print('city' in my_dict.keys())  # Вернет False
     del my_dict['age']
     print(my_dict.keys())  # Вернет ['name']
     print(my_dict.values())  # Вернет ['Alice']
