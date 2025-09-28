@@ -21,7 +21,18 @@ class MyDict:
            for item in old_table:
                if item is not None:
                    _, key, value = item
-                   self.add(key, value)
+                   self.__setitem__(key, value)
+
+
+    def _probe(self, start_index) -> int | None:
+
+        '''Ищем свободную ячейку для добавления пары key-value'''
+
+        # Проходим по всем ячейкам в хэш-таблице
+        for i in range(start_index + 1, self.size + start_index):
+            index = i % self.size
+            if self.table[index] is None:
+                return index
 
 
     def __setitem__(self, key, value) -> None:
@@ -42,18 +53,7 @@ class MyDict:
             else:
                 # Иначе увеличиваем размер таблицы и повторно добавляем пару ключ-значение
                 self._resize()
-                self.add(key, value)
-
-
-    def _probe(self, start_index) -> int | None:
-
-        '''Ищем свободную ячейку для добавления пары key-value'''
-
-        # Проходим по всем ячейкам в хэш-таблице
-        for i in range(start_index + 1, self.size + start_index):
-            index = i % self.size
-            if self.table[index] is None:
-                return index
+                self.__setitem__(key, value)
 
 
     def __getitem__(self, key) -> Any | None:
@@ -83,7 +83,7 @@ class MyDict:
             self.table[key_hash] = None
             return True
         else:
-            for i in range(key_hash + 2, self.size + key_hash):
+            for i in range(key_hash + 1, self.size + key_hash):
                 index = i % self.size
                 if self.table[index] is not None and self.table[index][1] == key:
                     self.table[index] = None
@@ -113,16 +113,17 @@ class MyDict:
 
 my_dict = MyDict()
 my_dict['name'] = 'Alice'
-# my_dict['1'] = '1'
-# my_dict['2'] = '2'
-# my_dict['3'] = '3'
-# my_dict['4'] = '4'
-# my_dict['5'] = '5'
-# my_dict['6'] = '6'
-# my_dict['7'] = '7'
+my_dict['1'] = '1'
+my_dict['2'] = '2'
+my_dict['3'] = '3'
+my_dict['4'] = '4'
+my_dict['5'] = '5'
+my_dict['6'] = '6'
+my_dict['7'] = '7'
 my_dict['age'] = 30
 print(my_dict['name'])  # Вернет 'Alice'
 print('city' in my_dict.keys())  # Вернет False
 del my_dict['age']
 print(my_dict.keys())  # Вернет ['name']
 print(my_dict.values())  # Вернет ['Alice']
+print(my_dict.items()) #
